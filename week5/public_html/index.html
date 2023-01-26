@@ -2,22 +2,19 @@
 <html>
 <body>
 
-<h2>Create Object from JSON String</h2>
+<h2>My Personal Page</h2>
 
-<p id="demo"></p>
+<p>Activate debugging in your browser (Chrome, IE, Firefox) with F12, and select "Console" in the debugger menu.</p>
 
 <script>
-let text = '{"employees":[' +
-'{"firstName":"John","lastName":"Doe" },' +
-'{"firstName":"Anna","lastName":"Smith" },' +
-'{"firstName":"Peter","lastName":"Jones" }]}';
-
-const obj = JSON.parse(text);
-document.getElementById("demo").innerHTML =
-obj.employees[1].firstName + " " + obj.employees[1].lastName;
+a = 5;
+b = 6;
+c = a + b;
+console.log(c);
 </script>
 
 </body>
 </html>
+
 
   
