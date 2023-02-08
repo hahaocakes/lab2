@@ -175,6 +175,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       $nameErr = "Only letters and white space allowed";
     }
   }
+  if (empty($_POST["lastname"])) {
+    $lastnameErr = "Last Name is required";
+  } else {
+    $lastname = test_input($_POST["lastname"]);
+    // check if name only contains letters and whitespace
+    if (!preg_match("/^[a-zA-Z-' ]*$/",$name)) {
+      $lastnameErr = "Only letters and white space allowed";
+    }
+  }
   
   if (empty($_POST["email"])) {
     $emailErr = "Email is required";
@@ -253,6 +262,67 @@ echo "<br>";
 echo $gender;
 ?>
 
+<?php
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") 
+{
+
+	$servername = "localhost";
+	$username = "webprogmi212";
+	$password = "webprogmi212";
+	$dbname = "webprogmi212";
+	
+	// Create connection
+	$conn = new mysqli($servername, $username, $password, $dbname);
+	// Check connection
+	if ($conn->connect_error) {
+	die("Connection failed: " . $conn->connect_error);
+	}
+	
+	$sql = "INSERT INTO jatolentino_myguests (name, email, website)
+	VALUES ('$name', '$email', '$website')";
+	
+	if ($conn->query($sql) === TRUE) {
+	echo "<br>" . "New record succesfully added";
+	} else {
+	echo "Error: " . $sql . "<br>" . $conn->error;
+	}
+	
+	$conn->close();
+}
+?>
+
+<!-- output db content -->
+<!-- select data mysql webprogmi212 -->
+<?php
+        $servername = "localhost";
+        $username = "webprogmi212";
+        $password = "webprogmi212";
+        $dbname = "webprogmi212";
+
+        // Create connection
+        $conn = new mysqli($servername, $username, $password, $dbname);
+        // Check connection
+        if ($conn->connect_error) {
+        die("Connection failed: " . $conn->connect_error);
+        }
+
+        $sql = "SELECT id, name, email, website FROM jatolentino_myguests";
+        $result = $conn->query($sql);
+
+        echo "<h1>My Guests</h1>";
+        if ($result->num_rows > 0) {
+        // output data of each row
+        while($row = $result->fetch_assoc()) {
+            
+            echo "<br>";
+            echo "id: " . $row["id"]. " - " . $row["name"]. " email: " . $row["email"]. " - " . $row["website"]. "<br>";
+        }
+        } else {
+        echo "0 results";
+        }
+        $conn->close();
+        ?>
 <!-- end of form validation -->
 
         </div><!-- end of container -->
